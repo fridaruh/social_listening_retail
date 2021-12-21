@@ -21,9 +21,22 @@ api = tweepy.API(auth)
 
 st.title("Social Listening")
 
-word_search = st.text_input("Introduce una palabra a clave: ",value="@justo_mx")
+st.write(""" 
+Este tablero está diseñado para poder escuchar a los usuarios de Twitter,
+entender las tendencias que están al rededor de la cuenta de @justo_mx y poder rescatar
+la información más relevante de los usuarios.
+""")
 
-time.sleep(5)
+word_search = st.text_input("Introduce una palabra a clave*: ", value="@justo_mx")
+st.write("""
+**Por default la palabra clave es @justo_mx, pero se pueden trackear otras cuentas/términos.""")
+
+st.write("")
+st.write("## Palabras más frecuentes")
+st.write("")
+st.write("Palabras más frecuentes con el término: " + word_search)
+
+
 
 twitter_users = []
 tweet_time = []
@@ -72,6 +85,10 @@ df_2 = [w for w in flatten if w not in stop_words_n]
 
 df_3 = [w for w in df_2 if w not in puntuacion]
 
+omitir_palabras = word_search
+
+df_3 = [w for w in df_3 if w not in omitir_palabras]
+
 freq_words = nltk.FreqDist(df_3)
 
 num_palabras = st.slider('¿Cuántas palabras quieres ver?',min_value=5,max_value=20,value=15)
@@ -84,6 +101,8 @@ ax4.bar(w_plot_tweets['word'],w_plot_tweets['frequency'])
 plt.xticks(rotation=90)
 plt.show()
 st.pyplot(fig4)
+
+st.write("## Nube de palabras")
 
 fig2, ax = plt.subplots()
 wordcloud_tweets = WordCloud(background_color='white', collocations=False, max_words=30).fit_words(freq_words)
@@ -121,6 +140,7 @@ def print_top_words(model, feature_names, n_top_words):
 
 st.write(print_top_words(nmf, tfidf_vectorizer.get_feature_names(), n_top_words=3))
 
+st.write("## Búsqueda inversa")
 
 busqueda_inv = st.text_input("Introduce una palabra a buscar en los tweets: ")
 
