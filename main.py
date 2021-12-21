@@ -15,8 +15,8 @@ from sklearn.pipeline import make_pipeline
 import time
 
 
-auth = tweepy.OAuthHandler(st.secrets.db_credentials.consumer_key, st.secrets.db_credentials.consumer_secret)
-auth.set_access_token(st.secrets.db_credentials.access_token, st.secrets.db_credentials.access_token_secret)
+auth = tweepy.OAuthHandler(st.secrets.tw_credentials.consumer_key, st.secrets.tw_credentials.consumer_secret)
+auth.set_access_token(st.secrets.tw_credentials.access_token, st.secrets.tw_credentials.access_token_secret)
 api = tweepy.API(auth)
 
 st.title("Social Listening")
