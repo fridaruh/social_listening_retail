@@ -21,7 +21,7 @@ api = tweepy.API(auth)
 
 st.title("Social Listening")
 
-word_search = st.text_input("Introduce una palabra a clave: ")
+word_search = st.text_input("Introduce una palabra a clave: ",value="@justo_mx")
 
 time.sleep(5)
 
